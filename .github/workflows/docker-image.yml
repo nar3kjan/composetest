@@ -10,6 +10,6 @@ jobs:
       - name: Build the stack
         run: docker-compose up -d
       - name: actions-curl
-        run: apt-get install curl -y
+        run: sudo apt-get install curl -y
       - name: curl
         run: curl localhost:80
