@@ -2,6 +2,8 @@ name: docker-compose-actions-workflow
 on: workflow_dispatch
 jobs:
   test:
+    env: # Or as an environment variable
+      NAME: ${{ secrets.NAME }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
