@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: greetings-app
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: greetings-app
+  template:
+    metadata:
+      labels:
+        app: greetings-app
+    spec:
+      containers:
+      - name: greetings-app
+        image: greetingsregistry.azurecr.io/greetings:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        env:
+        - name: NAME
+          valueFrom:
+            configMapKeyRef:
+              name: greetings
+              key: NAME
+      imagePullSecrets:
+      - name: regcred
+      nodeSelector:
+        pool: frontend
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: greetings-app
+spec:
+  selector:
+    app: greetings-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: LoadBalancer

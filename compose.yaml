@@ -1,0 +1,13 @@
+services:
+  db:
+    image: redis
+    restart: always
+    expose:
+      - 6379
+  greetings:
+    build: .
+    ports:
+      - 80:5000
+    restart: always
+    environment:
+      - NAME=${NAME}
