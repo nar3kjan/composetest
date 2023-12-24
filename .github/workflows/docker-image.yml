@@ -9,5 +9,11 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build the stack
         run: docker-compose up -d
-      - name: Test
-        run: curl http://localhost:80/
+      - name: actions-curl
+  # You may pin to the exact commit or the version.
+  # uses: alesil/actions-curl@3bdc94d2e231b65cfafd795a820f99890b0603f6
+        uses: alesil/actions-curl@v1.2
+        with:
+    # Curl parameters
+          curl: localhost:80
+          
